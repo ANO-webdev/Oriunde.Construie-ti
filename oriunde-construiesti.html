@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Oriunde Construiești – Acoperișuri de Calitate</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white: #ffffff;
+      --off-white: #f8f7f5;
+      --stone: #e8e4df;
+      --clay: #c4b9aa;
+      --charcoal: #2b2b2b;
+      --dark: #1a1a1a;
+      --accent: #b5651d;
+      --accent-light: #d4834a;
+      --text: #3d3d3d;
+      --muted: #7a7a7a;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text);
+      background: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.4rem 5%;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--stone);
+      transition: box-shadow 0.3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.07); }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--dark);
+      letter-spacing: -0.02em;
+    }
+    .logo span { color: var(--accent); }
+
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    .nav-cta {
+      background: var(--accent);
+      color: white !important;
+      padding: 0.6rem 1.4rem;
+      border-radius: 2px;
+    }
+    .nav-cta:hover { background: var(--accent-light); color: white !important; }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 80px;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 6rem 5% 6rem 8%;
+      background: var(--off-white);
+    }
+
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.2s forwards;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 4.5vw, 4.2rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--dark);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.4s forwards;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--muted);
+      max-width: 420px;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.6s forwards;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 1rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.8s forwards;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+      padding: 0.9rem 2rem;
+      border: none;
+      border-radius: 2px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: var(--accent-light); transform: translateY(-1px); }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--dark);
+      padding: 0.9rem 2rem;
+      border: 1.5px solid var(--clay);
+      border-radius: 2px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+      display: inline-block;
+    }
+    .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+    .hero-stats {
+      display: flex;
+      gap: 2.5rem;
+      margin-top: 3.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--stone);
+      opacity: 0;
+      animation: fadeUp 0.8s 1s forwards;
+    }
+
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--dark);
+    }
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.1rem;
+      letter-spacing: 0.03em;
+    }
+
+    .hero-right {
+      position: relative;
+      background: var(--charcoal);
+      overflow: hidden;
+    }
+
+    .hero-img-placeholder {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, #2b2b2b 0%, #3d3020 50%, #2b2b2b 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Roof SVG illustration */
+    .roof-illustration {
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      animation: fadeIn 1.2s 0.5s forwards;
+    }
+
+    .hero-badge {
+      position: absolute;
+      bottom: 3rem;
+      left: -1.5rem;
+      background: white;
+      padding: 1.2rem 1.5rem;
+      border-radius: 4px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+      opacity: 0;
+      animation: fadeUp 0.8s 1.2s forwards;
+    }
+    .hero-badge-title {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.3rem;
+    }
+    .hero-badge-val {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--dark);
+    }
+    .hero-badge-val span { color: var(--accent); }
+
+    /* SERVICES */
+    #services {
+      padding: 7rem 8%;
+      background: var(--white);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 4rem;
+    }
+
+    .section-tag {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      font-weight: 700;
+      color: var(--dark);
+      line-height: 1.2;
+    }
+
+    .section-desc {
+      max-width: 340px;
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.7;
+      text-align: right;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5px;
+      background: var(--stone);
+    }
+
+    .service-card {
+      background: var(--white);
+      padding: 2.5rem;
+      transition: background 0.3s;
+      cursor: default;
+    }
+    .service-card:hover { background: var(--off-white); }
+
+    .service-icon {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 1.5rem;
+      color: var(--accent);
+    }
+
+    .service-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 0.8rem;
+    }
+
+    .service-text {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* GALLERY */
+    #portfolio {
+      padding: 7rem 8%;
+      background: var(--off-white);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-rows: 240px 240px;
+      gap: 8px;
+      margin-top: 3rem;
+    }
+
+    .gallery-item {
+      border-radius: 2px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .gallery-item:first-child { grid-row: 1 / 3; }
+
+    .gallery-fill {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: transform 0.4s;
+    }
+
+    .gallery-item:hover .gallery-fill { transform: scale(1.04); }
+
+    .g1 { background: linear-gradient(135deg, #8b7355 0%, #6b5740 100%); }
+    .g2 { background: linear-gradient(135deg, #5a4a3a 0%, #3d3020 100%); }
+    .g3 { background: linear-gradient(135deg, #7a6a55 0%, #5a4a35 100%); }
+    .g4 { background: linear-gradient(135deg, #4a3d30 0%, #6b5740 100%); }
+    .g5 { background: linear-gradient(135deg, #6b5740 0%, #8b7355 100%); }
+
+    .gallery-label {
+      position: absolute;
+      bottom: 1rem;
+      left: 1rem;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(8px);
+      color: white;
+      font-size: 0.75rem;
+      padding: 0.3rem 0.7rem;
+      border-radius: 2px;
+      letter-spacing: 0.06em;
+    }
+
+    /* ABOUT */
+    #about {
+      padding: 7rem 8%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+      background: var(--white);
+    }
+
+    .about-visual {
+      position: relative;
+    }
+
+    .about-img-main {
+      width: 100%;
+      aspect-ratio: 4/5;
+      background: linear-gradient(160deg, #8b7355, #3d3020);
+      border-radius: 2px;
+    }
+
+    .about-img-accent {
+      position: absolute;
+      bottom: -2rem;
+      right: -2rem;
+      width: 55%;
+      aspect-ratio: 1;
+      background: var(--accent);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .about-accent-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: white;
+      line-height: 1.2;
+      text-align: center;
+    }
+
+    .about-content { padding-right: 1rem; }
+
+    .about-body {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 1.2rem;
+    }
+
+    .about-features {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .about-feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .about-feature-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      margin-top: 0.45rem;
+      flex-shrink: 0;
+    }
+
+    .about-feature-text {
+      font-size: 0.92rem;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* TESTIMONIALS */
+    #testimonials {
+      padding: 7rem 8%;
+      background: var(--charcoal);
+      color: white;
+    }
+
+    #testimonials .section-tag { color: var(--clay); }
+    #testimonials .section-title { color: white; }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 4rem;
+    }
+
+    .testimonial-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 2.5rem;
+      border-radius: 2px;
+      transition: background 0.3s;
+    }
+    .testimonial-card:hover { background: rgba(255,255,255,0.09); }
+
+    .testimonial-stars {
+      display: flex;
+      gap: 0.3rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .star { color: var(--accent); font-size: 1rem; }
+
+    .testimonial-text {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 1.5rem;
+      font-style: italic;
+    }
+
+    .testimonial-author {
+      font-weight: 500;
+      color: white;
+      font-size: 0.9rem;
+    }
+
+    .testimonial-location {
+      font-size: 0.8rem;
+      color: var(--clay);
+      margin-top: 0.2rem;
+    }
+
+    /* CONTACT */
+    #contact {
+      padding: 7rem 8%;
+      background: var(--off-white);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: start;
+    }
+
+    .contact-info { padding-top: 1rem; }
+
+    .contact-detail {
+      display: flex;
+      gap: 1.2rem;
+      align-items: flex-start;
+      margin-bottom: 2rem;
+    }
+
+    .contact-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--accent);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: white;
+    }
+
+    .contact-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 0.3rem;
+    }
+
+    .contact-val {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--dark);
+    }
+
+    .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+
+    label {
+      font-size: 0.78rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+
+    input, textarea, select {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      padding: 0.85rem 1rem;
+      border: 1.5px solid var(--stone);
+      border-radius: 2px;
+      background: white;
+      color: var(--dark);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input:focus, textarea:focus, select:focus { border-color: var(--accent); }
+
+    textarea { resize: vertical; min-height: 120px; }
+
+    .form-submit {
+      background: var(--accent);
+      color: white;
+      padding: 1rem;
+      border: none;
+      border-radius: 2px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      letter-spacing: 0.04em;
+    }
+    .form-submit:hover { background: var(--accent-light); transform: translateY(-1px); }
+
+    /* FOOTER */
+    footer {
+      background: var(--dark);
+      color: rgba(255,255,255,0.5);
+      padding: 2rem 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+    }
+
+    footer .logo { color: white; font-size: 1.1rem; }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* DIVIDER */
+    .line-divider {
+      width: 48px;
+      height: 2px;
+      background: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      #hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-right { height: 40vh; }
+      .hero-badge { display: none; }
+      #about, #contact { grid-template-columns: 1fr; gap: 3rem; }
+      .about-img-accent { right: 0; bottom: -1.5rem; }
+      .services-grid, .testimonials-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+      .gallery-item:first-child { grid-row: auto; }
+      .section-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+      .section-desc { text-align: left; max-width: 100%; }
+      .form-row { grid-template-columns: 1fr; }
+      nav { padding: 1rem 5%; }
+      .nav-links { display: none; }
+      .hero-left { padding: 4rem 5%; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="logo">Oriunde<span>.</span>Construiești</div>
+  <ul class="nav-links">
+    <li><a href="#services">Servicii</a></li>
+    <li><a href="#portfolio">Proiecte</a></li>
+    <li><a href="#about">Despre noi</a></li>
+    <li><a href="#testimonials">Recenzii</a></li>
+    <li><a href="#contact" class="nav-cta">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <span class="hero-tag">Acoperișuri · România</span>
+    <h1 class="hero-title">
+      Calitate deasupra<br/><em>oricărui acoperiș</em>
+    </h1>
+    <p class="hero-desc">
+      Montăm, reparăm și izolăm acoperișuri în toată România — cu materiale de top, echipă specializată și garanție pe lucrare.
+    </p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary">Solicită ofertă</a>
+      <a href="#portfolio" class="btn-secondary">Vezi proiecte</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">500+</div>
+        <div class="stat-label">Proiecte finalizate</div>
+      </div>
+      <div>
+        <div class="stat-num">12</div>
+        <div class="stat-label">Ani experiență</div>
+      </div>
+      <div>
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Clienți mulțumiți</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img-placeholder">
+      <svg class="roof-illustration" viewBox="0 0 600 500" xmlns="http://www.w3.org/2000/svg">
+        <!-- Sky gradient -->
+        <defs>
+          <linearGradient id="sky" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#1a1a2e;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#3d3020;stop-opacity:1" />
+          </linearGradient>
+          <linearGradient id="roofGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#8b7355" />
+            <stop offset="100%" style="stop-color:#5a4030" />
+          </linearGradient>
+          <linearGradient id="wallGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#f0ebe3" />
+            <stop offset="100%" style="stop-color:#d4c9b8" />
+          </linearGradient>
+        </defs>
+        <rect width="600" height="500" fill="url(#sky)"/>
+
+        <!-- Stars -->
+        <circle cx="80" cy="60" r="1.2" fill="white" opacity="0.6"/>
+        <circle cx="150" cy="30" r="0.8" fill="white" opacity="0.5"/>
+        <circle cx="480" cy="50" r="1.5" fill="white" opacity="0.7"/>
+        <circle cx="530" cy="90" r="0.9" fill="white" opacity="0.4"/>
+        <circle cx="350" cy="25" r="1.1" fill="white" opacity="0.6"/>
+        <circle cx="420" cy="70" r="0.7" fill="white" opacity="0.5"/>
+        <circle cx="200" cy="80" r="0.9" fill="white" opacity="0.4"/>
+
+        <!-- Moon -->
+        <circle cx="500" cy="70" r="30" fill="#f5e6a3" opacity="0.15"/>
+        <circle cx="512" cy="60" r="26" fill="#3d3020"/>
+
+        <!-- House body -->
+        <rect x="120" y="260" width="360" height="200" fill="url(#wallGrad)"/>
+
+        <!-- Roof main -->
+        <polygon points="80,265 300,110 520,265" fill="url(#roofGrad)"/>
+
+        <!-- Roof tiles rows -->
+        <g opacity="0.3" fill="#3d2510">
+          <rect x="140" y="220" width="40" height="12" rx="1"/>
+          <rect x="188" y="220" width="40" height="12" rx="1"/>
+          <rect x="236" y="220" width="40" height="12" rx="1"/>
+          <rect x="284" y="220" width="40" height="12" rx="1"/>
+          <rect x="332" y="220" width="40" height="12" rx="1"/>
+          <rect x="380" y="220" width="40" height="12" rx="1"/>
+
+          <rect x="160" y="198" width="40" height="12" rx="1"/>
+          <rect x="208" y="198" width="40" height="12" rx="1"/>
+          <rect x="256" y="198" width="40" height="12" rx="1"/>
+          <rect x="304" y="198" width="40" height="12" rx="1"/>
+          <rect x="352" y="198" width="40" height="12" rx="1"/>
+
+          <rect x="180" y="177" width="40" height="12" rx="1"/>
+          <rect x="228" y="177" width="40" height="12" rx="1"/>
+          <rect x="276" y="177" width="40" height="12" rx="1"/>
+          <rect x="324" y="177" width="40" height="12" rx="1"/>
+
+          <rect x="200" y="157" width="38" height="12" rx="1"/>
+          <rect x="246" y="157" width="38" height="12" rx="1"/>
+          <rect x="292" y="157" width="38" height="12" rx="1"/>
+
+          <rect x="218" y="138" width="36" height="11" rx="1"/>
+          <rect x="262" y="138" width="36" height="11" rx="1"/>
+
+          <rect x="234" y="121" width="34" height="10" rx="1"/>
+        </g>
+
+        <!-- Chimney -->
+        <rect x="370" y="155" width="40" height="80" fill="#6b5030"/>
+        <rect x="363" y="148" width="54" height="12" fill="#5a4025"/>
+        <!-- Smoke -->
+        <circle cx="390" cy="130" r="10" fill="rgba(255,255,255,0.06)"/>
+        <circle cx="395" cy="112" r="13" fill="rgba(255,255,255,0.04)"/>
+        <circle cx="388" cy="95" r="16" fill="rgba(255,255,255,0.03)"/>
+
+        <!-- Windows -->
+        <rect x="170" y="300" width="70" height="80" fill="#8eb8d4" opacity="0.8"/>
+        <rect x="170" y="300" width="70" height="80" fill="none" stroke="#c4b9aa" stroke-width="4"/>
+        <line x1="205" y1="300" x2="205" y2="380" stroke="#c4b9aa" stroke-width="3"/>
+        <line x1="170" y1="340" x2="240" y2="340" stroke="#c4b9aa" stroke-width="3"/>
+        <!-- Window light -->
+        <rect x="172" y="302" width="31" height="36" fill="#f5e6a3" opacity="0.35"/>
+
+        <rect x="360" y="300" width="70" height="80" fill="#8eb8d4" opacity="0.8"/>
+        <rect x="360" y="300" width="70" height="80" fill="none" stroke="#c4b9aa" stroke-width="4"/>
+        <line x1="395" y1="300" x2="395" y2="380" stroke="#c4b9aa" stroke-width="3"/>
+        <line x1="360" y1="340" x2="430" y2="340" stroke="#c4b9aa" stroke-width="3"/>
+        <rect x="362" y="302" width="31" height="36" fill="#f5e6a3" opacity="0.35"/>
+
+        <!-- Door -->
+        <rect x="260" y="340" width="80" height="120" fill="#5a4030"/>
+        <rect x="260" y="340" width="80" height="120" fill="none" stroke="#c4b9aa" stroke-width="3"/>
+        <circle cx="333" cy="400" r="5" fill="#d4a050"/>
+        <!-- Door arch -->
+        <path d="M260,340 Q300,310 340,340" fill="#6b5040"/>
+
+        <!-- Ground -->
+        <rect x="0" y="455" width="600" height="50" fill="#2a4a2a" opacity="0.7"/>
+        <rect x="0" y="460" width="600" height="40" fill="#1a3a1a" opacity="0.5"/>
+
+        <!-- Path -->
+        <polygon points="250,455 350,455 370,500 230,500" fill="#8b7355" opacity="0.5"/>
+
+        <!-- Bushes -->
+        <ellipse cx="160" cy="458" rx="40" ry="20" fill="#2a5a2a"/>
+        <ellipse cx="440" cy="458" rx="40" ry="20" fill="#2a5a2a"/>
+
+        <!-- Accent light on roof top -->
+        <polygon points="280,115 300,110 320,115 300,120" fill="#b5651d" opacity="0.5"/>
+
+        <!-- Brand text on image -->
+        <text x="50" y="490" font-family="Georgia, serif" font-size="11" fill="rgba(255,255,255,0.3)" letter-spacing="3">ORIUNDE CONSTRUIEȘTI</text>
+      </svg>
+    </div>
+    <div class="hero-badge">
+      <div class="hero-badge-title">Garanție lucrare</div>
+      <div class="hero-badge-val"><span>5</span> ani</div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-header">
+    <div>
+      <div class="section-tag">Ce facem</div>
+      <h2 class="section-title">Servicii complete<br/>de acoperișuri</h2>
+    </div>
+    <p class="section-desc">De la montaj nou până la reparații urgente — suntem echipa la care apelezi cu încredere.</p>
+  </div>
+
+  <div class="services-grid">
+    <div class="service-card">
+      <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M6 20L24 6L42 20V42H6V20Z"/>
+        <path d="M18 42V30H30V42"/>
+      </svg>
+      <div class="service-name">Montaj acoperiș nou</div>
+      <p class="service-text">Instalare completă de acoperișuri pe structuri noi, cu materiale de calitate superioară și finisaje impecabile.</p>
+    </div>
+    <div class="service-card">
+      <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8">
+        <circle cx="24" cy="24" r="16"/>
+        <path d="M24 16V24L30 30"/>
+        <path d="M8 8L14 14M40 8L34 14"/>
+      </svg>
+      <div class="service-name">Reparații și consolidări</div>
+      <p class="service-text">Intervenții rapide pentru orice tip de deteriorare — infiltrații, fisuri, țigle sparte sau structuri slăbite.</p>
+    </div>
+    <div class="service-card">
+      <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M8 30C8 30 12 18 24 18C36 18 40 30 40 30"/>
+        <path d="M4 36H44"/>
+        <path d="M12 36V30M24 36V26M36 36V30"/>
+      </svg>
+      <div class="service-name">Hidroizolații</div>
+      <p class="service-text">Sisteme moderne de hidroizolație pentru acoperișuri plate sau înclinate — protecție garantată pe termen lung.</p>
+    </div>
+    <div class="service-card">
+      <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8">
+        <rect x="8" y="10" width="32" height="28" rx="2"/>
+        <path d="M8 20H40M20 10V38"/>
+        <path d="M26 15H36M26 25H36M26 33H36"/>
+      </svg>
+      <div class="service-name">Termoizolații</div>
+      <p class="service-text">Izolație termică profesională care reduce costurile de încălzire și menține confortul pe tot parcursul anului.</p>
+    </div>
+    <div class="service-card">
+      <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M10 38L24 10L38 38H10Z"/>
+        <path d="M10 28H38M14 34H34"/>
+        <circle cx="24" cy="20" r="3"/>
+      </svg>
+      <div class="service-name">Învelitori metalice</div>
+      <p class="service-text">Montaj de tablă, șindrilă metalică și sisteme de acoperire modernă cu aspect estetic deosebit.</p>
+    </div>
+    <div class="service-card">
+      <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M12 36V20L24 8L36 20V36"/>
+        <path d="M8 36H40"/>
+        <path d="M20 36V26H28V36"/>
+        <circle cx="24" cy="16" r="3"/>
+      </svg>
+      <div class="service-name">Jgheaburi și burlane</div>
+      <p class="service-text">Sisteme complete de colectare și evacuare a apei pluviale, montate corect pentru durabilitate maximă.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="section-header">
+    <div>
+      <div class="section-tag">Proiecte</div>
+      <h2 class="section-title">Lucrări realizate<br/>cu mândrie</h2>
+    </div>
+    <p class="section-desc">Fiecare proiect e o carte de vizită. Vedem rezultatele — clienții noștri și le.
+    </p>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-item">
+      <div class="gallery-fill g1">
+        <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+          <path d="M10 50L40 20L70 50V70H10V50Z" stroke="rgba(255,255,255,0.3)" stroke-width="2" fill="rgba(255,255,255,0.05)"/>
+          <path d="M30 70V55H50V70" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="gallery-label">Casă individuală · Cluj</div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-fill g2">
+        <svg width="50" height="50" viewBox="0 0 80 80" fill="none">
+          <rect x="10" y="30" width="60" height="40" stroke="rgba(255,255,255,0.3)" stroke-width="2" fill="rgba(255,255,255,0.05)"/>
+          <path d="M5 30L40 10L75 30" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="gallery-label">Bloc · București</div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-fill g3">
+        <svg width="50" height="50" viewBox="0 0 80 80" fill="none">
+          <path d="M15 55L40 25L65 55V70H15V55Z" stroke="rgba(255,255,255,0.3)" stroke-width="2" fill="rgba(255,255,255,0.05)"/>
+        </svg>
+      </div>
+      <div class="gallery-label">Vilă · Brașov</div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-fill g4">
+        <svg width="50" height="50" viewBox="0 0 80 80" fill="none">
+          <rect x="5" y="20" width="70" height="50" stroke="rgba(255,255,255,0.3)" stroke-width="2" fill="rgba(255,255,255,0.05)"/>
+          <line x1="5" y1="20" x2="75" y2="20" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="gallery-label">Hală industrială · Timișoara</div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-fill g5">
+        <svg width="50" height="50" viewBox="0 0 80 80" fill="none">
+          <path d="M20 60L40 30L60 60V70H20V60Z" stroke="rgba(255,255,255,0.3)" stroke-width="2" fill="rgba(255,255,255,0.05)"/>
+          <circle cx="40" cy="42" r="5" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="gallery-label">Pensiune · Sinaia</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-visual">
+    <div class="about-img-main"></div>
+    <div class="about-img-accent">
+      <div class="about-accent-text">12 ani<br/>de<br/>experiență</div>
+    </div>
+  </div>
+  <div class="about-content">
+    <div class="section-tag">Despre noi</div>
+    <div class="line-divider"></div>
+    <h2 class="section-title" style="margin-bottom:1.5rem">Echipă de<br/>profesioniști</h2>
+    <p class="about-body">Suntem o echipă specializată în lucrări de acoperișuri cu peste 12 ani de activitate în întreaga țară. Am construit o reputație pe baza calității, punctualității și transparenței față de fiecare client.</p>
+    <p class="about-body">Lucrăm atât pentru clienți privați cât și pentru companii și dezvoltatori imobiliari. Indiferent de dimensiunea proiectului, implicarea noastră este 100%.</p>
+    <div class="about-features">
+      <div class="about-feature">
+        <div class="about-feature-dot"></div>
+        <div class="about-feature-text">Materiale premium de la furnizori certificați europeni</div>
+      </div>
+      <div class="about-feature">
+        <div class="about-feature-dot"></div>
+        <div class="about-feature-text">Echipă autorizată ISCIR și certificată pentru lucru la înălțime</div>
+      </div>
+      <div class="about-feature">
+        <div class="about-feature-dot"></div>
+        <div class="about-feature-text">Garanție 5 ani pe lucrările executate</div>
+      </div>
+      <div class="about-feature">
+        <div class="about-feature-dot"></div>
+        <div class="about-feature-text">Ofertă gratuită și evaluare la fața locului</div>
+      </div>
+      <div class="about-feature">
+        <div class="about-feature-dot"></div>
+        <div class="about-feature-text">Intervenții rapide în toată România</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div>
+    <div class="section-tag">Recenzii</div>
+    <h2 class="section-title">Ce spun clienții noștri</h2>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card">
+      <div class="testimonial-stars">
+        <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+      </div>
+      <p class="testimonial-text">"Am apelat la ei pentru o reparație urgentă după o furtună. Au venit a doua zi dimineață și au rezolvat totul profesional. Recomand cu toată încrederea!"</p>
+      <div class="testimonial-author">Andrei Popescu</div>
+      <div class="testimonial-location">Cluj-Napoca</div>
+    </div>
+    <div class="testimonial-card">
+      <div class="testimonial-stars">
+        <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+      </div>
+      <p class="testimonial-text">"Montaj complet pe casa noastră nouă. Prețuri corecte, echipă serioasă, finisaje de calitate. Nu au plecat până nu a fost totul perfect. Mulțumim!"</p>
+      <div class="testimonial-author">Maria și Bogdan Ionescu</div>
+      <div class="testimonial-location">Brașov</div>
+    </div>
+    <div class="testimonial-card">
+      <div class="testimonial-stars">
+        <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+      </div>
+      <p class="testimonial-text">"Am avut probleme serioase cu infiltrațiile de ani de zile. Oriunde Construiești a rezolvat definitiv problema. Terasa arată impecabil acum."</p>
+      <div class="testimonial-author">Cristina Dumitrescu</div>
+      <div class="testimonial-location">București</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-info">
+    <div class="section-tag">Contact</div>
+    <div class="line-divider"></div>
+    <h2 class="section-title" style="margin-bottom:2rem">Hai să discutăm<br/>despre proiectul tău</h2>
+    <p style="color:var(--muted);font-size:0.95rem;line-height:1.7;margin-bottom:2.5rem;">Contactează-ne pentru o ofertă gratuită. Venim la fața locului, evaluăm situația și îți oferim o soluție clară, fără costuri ascunse.</p>
+
+    <div class="contact-detail">
+      <div class="contact-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.17h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+        </svg>
+      </div>
+      <div>
+        <div class="contact-label">Telefon</div>
+        <div class="contact-val">+40 700 000 000</div>
+      </div>
+    </div>
+
+    <div class="contact-detail">
+      <div class="contact-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+          <polyline points="22,6 12,13 2,6"/>
+        </svg>
+      </div>
+      <div>
+        <div class="contact-label">Email</div>
+        <div class="contact-val">contact@oriundeconstrujesti.ro</div>
+      </div>
+    </div>
+
+    <div class="contact-detail">
+      <div class="contact-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+          <circle cx="12" cy="10" r="3"/>
+        </svg>
+      </div>
+      <div>
+        <div class="contact-label">Acoperim toată România</div>
+        <div class="contact-val">București · Cluj · Timișoara și altele</div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="contact-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="name">Nume</label>
+          <input type="text" id="name" placeholder="Ion Popescu"/>
+        </div>
+        <div class="form-group">
+          <label for="phone">Telefon</label>
+          <input type="tel" id="phone" placeholder="+40 7xx xxx xxx"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="email@exemplu.ro"/>
+      </div>
+      <div class="form-group">
+        <label for="service">Serviciu dorit</label>
+        <select id="service">
+          <option value="">Selectează serviciul...</option>
+          <option>Montaj acoperiș nou</option>
+          <option>Reparații și consolidări</option>
+          <option>Hidroizolații</option>
+          <option>Termoizolații</option>
+          <option>Învelitori metalice</option>
+          <option>Jgheaburi și burlane</option>
+          <option>Altele</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="message">Detalii proiect</label>
+        <textarea id="message" placeholder="Descrie pe scurt situația sau proiectul tău..."></textarea>
+      </div>
+      <button class="form-submit" onclick="handleSubmit()">Trimite cererea →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">Oriunde<span style="color:var(--accent)">.</span>Construiești</div>
+  <div>© 2024 Oriunde Construiești. Toate drepturile rezervate.</div>
+  <div>Acoperișuri · România</div>
+</footer>
+
+<script>
+  // Nav scroll effect
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 30);
+  });
+
+  // Form submit
+  function handleSubmit() {
+    const name = document.getElementById('name').value;
+    if (!name) { alert('Te rugăm completează numele.'); return; }
+    alert('Mulțumim, ' + name + '! Te vom contacta în cel mai scurt timp.');
+  }
+
+  // Fade in on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.service-card, .testimonial-card, .gallery-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
